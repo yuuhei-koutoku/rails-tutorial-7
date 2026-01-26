@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: rails-tutorial-app
+    # ホスト側のsrcディレクトリをコンテナ内の/appにマウント
+    # これにより、ローカルでの編集が即座にコンテナに反映されます
+    volumes:
+      - ./src:/app
+      # bundle installの結果を保持するためのボリューム
+      - bundle_data:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    # デバッグ（binding.irb等）ができるように設定
+    tty: true
+    stdin_open: true
+    # 初回起動時などにコマンドを実行しやすくするため
+    command: bash -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
+
+volumes:
+  bundle_data:
