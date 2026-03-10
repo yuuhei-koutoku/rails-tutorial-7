@@ -27,5 +27,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
     assert_not flash.empty?
     assert is_logged_in?
+    assert_select "h1", text: "Example User"
   end
 end
