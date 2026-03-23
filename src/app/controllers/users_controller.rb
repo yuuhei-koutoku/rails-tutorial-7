@@ -5,7 +5,21 @@ class UsersController < ApplicationController
   before_action :admin_user,     only: :destroy
 
   def index
-    @users = User.paginate(page: params[:page])
+    respond_to do |format|
+      format.html do
+        @users = User.paginate(page: params[:page])
+      end
+      format.csv do
+        users = User.all
+        csv_data = CSV.generate do |csv|
+          csv << ['id', 'name', 'email']
+          users.each do |user|
+            csv << [user.id, user.name, user.email]
+          end
+        end
+        send_data csv_data, filename: "users.csv"
+      end
+    end
   end
 
   def show
