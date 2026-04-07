@@ -2,9 +2,11 @@ FROM ruby:3.2.9
 
 # 必要なパッケージのインストール
 # Rails 7 + SQLite3に必要なビルドツールとライブラリ
+# sqlite3: rails dbconsole 用の CLI（libsqlite3-dev は gem ビルド用）
 RUN apt-get update -qq && apt-get install -y \
     build-essential \
     libsqlite3-dev \
+    sqlite3 \
     vim
 
 # 作業ディレクトリの設定

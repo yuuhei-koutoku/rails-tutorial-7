@@ -255,6 +255,23 @@ input {
   }
 }
 
+.users-csv-actions {
+  margin-bottom: 15px;
+
+  input[type="file"],
+  input[type="submit"] {
+    width: auto;
+    margin-bottom: 0;
+  }
+
+  input[type="file"] {
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    background: transparent;
+  }
+}
+
 .users-csv-export {
   text-align: right;
   margin-bottom: 15px;
