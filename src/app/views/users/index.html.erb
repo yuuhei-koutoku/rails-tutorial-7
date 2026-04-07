@@ -2,8 +2,21 @@
 <h1>All users</h1>
 
 <% if current_user.admin? %>
-  <div class="users-csv-export">
-    <%= link_to "Export CSV", users_path(format: :csv), class: "btn btn-primary" %>
+  <%= render "shared/error_messages", object: @csv_import %>
+
+  <div class="row users-csv-actions">
+    <div class="col-xs-6">
+      <%= form_with model: @csv_import, url: import_csv_users_path, html: { class: "form-inline" } do |form| %>
+        <div class="form-group">
+          <%= form.file_field :csv_file, class: "form-control" %>
+        </div>
+        <%= form.submit "CSVインポート", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+
+    <div class="col-xs-6 text-right">
+      <%= link_to "CSVエクスポート", users_path(format: :csv), class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>
 
@@ -11,7 +24,7 @@
 
 <ul class="users">
   <% @users.each do |user| %>
-    <%= render @users %>
+    <%= render user %>
   <% end %>
 </ul>
 
